@@ -1,0 +1,4 @@
+node_modules/
+data/responses.json
+.claude/settings.local.json
+.DS_Store

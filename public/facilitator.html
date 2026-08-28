@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Say-Do Gap &mdash; Facilitator Dashboard</title>
+  <link rel="stylesheet" href="facilitator.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <p class="kicker">Say-Do Gap Self-Assessment</p>
+        <h1>Facilitator Dashboard</h1>
+      </div>
+      <div class="header-actions">
+        <span id="status" class="status">Loading&hellip;</span>
+        <button id="refresh" class="btn">Refresh</button>
+        <a id="export" class="btn" href="/api/export.csv">Export CSV</a>
+        <button id="reset" class="btn danger">Reset all</button>
+      </div>
+    </header>
+
+    <section id="keyGate" class="key-gate hidden">
+      <p>This dashboard is protected. Enter the facilitator key to continue.</p>
+      <input id="keyInput" type="password" placeholder="Facilitator key" />
+      <button id="keySubmit" class="btn">Unlock</button>
+    </section>
+
+    <main id="main" class="hidden">
+      <section class="summary-row">
+        <div class="stat-card">
+          <div class="stat-num" id="totalResponses">0</div>
+          <div class="stat-label">Responses</div>
+        </div>
+        <div class="stat-card warn" id="lowCatCard" style="display:none">
+          <div class="stat-num" id="lowCatCount">0</div>
+          <div class="stat-label">Categories with 0&ndash;1 people at #1<br/><span id="lowCatNames"></span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Grouped by primary gap (#1 ranked)</h2>
+        <p class="hint">This determines each participant's table/zone assignment.</p>
+        <div id="primaryChart" class="bars"></div>
+      </section>
+
+      <section>
+        <h2>Secondary gap (#2 ranked)</h2>
+        <p class="hint">Used for the empty-category redirect and as a talking point.</p>
+        <div id="secondaryChart" class="bars"></div>
+      </section>
+
+      <section>
+        <h2>SAY selections (not scored)</h2>
+        <p class="hint">How often each SAY statement was picked, across all respondents.</p>
+        <div id="sayChart" class="bars"></div>
+      </section>
+
+      <section>
+        <h2>Raw anonymous responses</h2>
+        <p class="hint">No names, emails, or device info are stored &mdash; timestamp and rankings only.</p>
+        <div class="table-wrap">
+          <table id="responseTable">
+            <thead>
+              <tr><th>#</th><th>Submitted</th><th>Full ranking (1&rarr;6)</th><th>SAY picks</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="content.js"></script>
+  <script src="facilitator.js"></script>
+</body>
+</html>

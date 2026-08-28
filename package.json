@@ -1,0 +1,12 @@
+{
+  "name": "say-do-gap-assessment",
+  "version": "1.0.0",
+  "description": "Anonymous Say-Do Gap self-assessment: SAY multi-select, DO ranking, dynamic private result screen, and a facilitator analysis dashboard. Zero external dependencies.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
