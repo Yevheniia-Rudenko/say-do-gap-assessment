@@ -1,0 +1,39 @@
+/* Proxima Nova — Netlight's primary brand typeface (unrestricted use per the
+   Visual Identity Guidelines). Shared by the participant app and the
+   facilitator dashboard. */
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("fonts/proximanova-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("fonts/proximanova-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("fonts/proximanova-semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("fonts/proximanova-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("fonts/proximanova-extrabold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}

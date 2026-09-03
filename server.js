@@ -6,7 +6,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const { CATEGORIES } = require("./content.js");
+const { CATEGORIES, SAY_STATEMENTS, DO_ITEMS } = require("./content.js");
 
 const PORT = process.env.PORT || 3000;
 const DATA_FILE = path.join(__dirname, "data", "responses.json");
@@ -18,6 +18,11 @@ const PUBLIC_DIR = path.join(__dirname, "public");
 const FACILITATOR_KEY = process.env.FACILITATOR_KEY || null;
 
 const VALID_KEYS = Object.keys(CATEGORIES); // ["A".."F"]
+
+// key -> full statement text, for the CSV export (the exact wording the
+// participant ranked/selected, not just its category name).
+const SAY_TEXT = Object.fromEntries(SAY_STATEMENTS.map((s) => [s.key, s.text]));
+const DO_TEXT = Object.fromEntries(DO_ITEMS.map((d) => [d.key, d.text]));
 
 // ---- storage helpers ----------------------------------------------------
 
@@ -80,6 +85,16 @@ function hasFacilitatorAccess(req, parsedUrl) {
   if (!FACILITATOR_KEY) return true;
   const key = parsedUrl.searchParams.get("key") || req.headers["x-facilitator-key"];
   return key === FACILITATOR_KEY;
+}
+
+// "2026-09-02T19:07:12.295Z" -> "2026-09-02 19:07:12" (still UTC, just easier
+// to read in a spreadsheet than raw ISO-8601 with a T/Z and milliseconds).
+function formatTimestamp(iso) {
+  return String(iso).replace("T", " ").replace(/\.\d+Z$/, "");
+}
+
+function csvCell(value) {
+  return `"${String(value).replace(/"/g, '""')}"`;
 }
 
 const MIME = {
@@ -194,16 +209,38 @@ const server = http.createServer(async (req, res) => {
       if (!hasFacilitatorAccess(req, parsedUrl)) return sendJson(res, 401, { error: "Missing or invalid facilitator key." });
 
       const responses = readResponses();
-      const header = ["submittedAt", "rank1", "rank2", "rank3", "rank4", "rank5", "rank6", "sayAnswers"];
-      const rows = responses.map((r) => [r.submittedAt, ...r.doRanking, (r.sayAnswers || []).join("|")]);
-      const csv = [header, ...rows]
-        .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(","))
-        .join("\n");
-      res.writeHead(200, {
-        "Content-Type": "text/csv",
-        "Content-Disposition": "attachment; filename=say-do-gap-responses.csv",
+      // Human-readable header, and the full statement text (not just the A-F
+      // key or its short category label), so the file is self-explanatory
+      // without the app open next to it.
+      const header = [
+        "Response #",
+        "Submitted (UTC)",
+        "1st - most true of me",
+        "2nd",
+        "3rd",
+        "4th",
+        "5th",
+        "6th - least true of me",
+        "SAY statements selected (not scored)",
+      ];
+      const rows = responses.map((r, i) => {
+        const rankTexts = r.doRanking.map((k) => `${CATEGORIES[k].label}: ${DO_TEXT[k]}`);
+        // Fixed A-F order rather than click order, so the column reads the
+        // same way for every respondent.
+        const sayTexts = VALID_KEYS.filter((k) => (r.sayAnswers || []).includes(k))
+          .map((k) => `${CATEGORIES[k].label}: ${SAY_TEXT[k]}`)
+          .join(" | ");
+        return [i + 1, formatTimestamp(r.submittedAt), ...rankTexts, sayTexts];
       });
-      return res.end(csv);
+      const csv = [header, ...rows].map((row) => row.map(csvCell).join(",")).join("\r\n");
+      const dateStamp = new Date().toISOString().slice(0, 10);
+      res.writeHead(200, {
+        "Content-Type": "text/csv; charset=utf-8",
+        "Content-Disposition": `attachment; filename=say-do-gap-responses-${dateStamp}.csv`,
+      });
+      // Leading BOM so Excel (Windows in particular) opens this as UTF-8
+      // instead of guessing a legacy codepage and mangling special characters.
+      return res.end("\uFEFF" + csv);
     }
 
     if (pathname === "/api/reset" && req.method === "POST") {

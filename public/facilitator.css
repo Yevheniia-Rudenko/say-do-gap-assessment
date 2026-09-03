@@ -1,15 +1,29 @@
-:root { color-scheme: light; }
+/* Facilitator Dashboard — same Netlight-inspired brand as the participant app,
+   dialed back for a data-dense working view. Proxima Nova is loaded via
+   fonts.css (linked from facilitator.html). */
+
+:root {
+  color-scheme: light;
+  --purple-light: #c6c6ff;
+  --purple-mid: #a29aff;
+  --purple: #785af2;
+  --purple-ink: #4a3aa8;
+  --beige: #fff0e6;
+  --ink: #14121f;
+  --muted: #6b6580;
+  --line: #e7e3fb;
+}
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  background: #f6f4ef;
-  color: #1c1a17;
+  font-family: "Proxima Nova", "Helvetica Neue", Arial, sans-serif;
+  background: #f7f5ff;
+  color: var(--ink);
 }
 
-.wrap { max-width: 960px; margin: 0 auto; padding: 28px 20px 80px; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 32px 20px 80px; }
 
 header {
   display: flex;
@@ -17,49 +31,66 @@ header {
   align-items: flex-end;
   flex-wrap: wrap;
   gap: 14px;
-  border-bottom: 1px solid #ddd4c4;
-  padding-bottom: 18px;
-  margin-bottom: 26px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+  margin-bottom: 28px;
 }
 
 .kicker {
+  display: inline-block;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   font-size: 11px;
-  color: #6b6355;
+  font-weight: 700;
+  color: var(--purple-ink);
+  background: var(--purple-light);
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin: 0 0 8px;
+}
+
+h1 {
+  font-family: "Proxima Nova", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  font-size: 1.7rem;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-family: "Proxima Nova", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.15rem;
   margin: 0 0 4px;
 }
 
-h1 { margin: 0; font-size: 1.6rem; }
-h2 { font-size: 1.1rem; margin: 0 0 4px; }
-
 .header-actions { display: flex; align-items: center; gap: 8px; }
 
-.status { font-size: 0.82rem; color: #6b6355; margin-right: 6px; }
+.status { font-size: 0.82rem; color: var(--muted); margin-right: 6px; }
 
 .btn {
   background: #fff;
-  border: 1px solid #ddd4c4;
-  border-radius: 8px;
-  padding: 8px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 16px;
   font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
-  color: #1c1a17;
+  color: var(--ink);
   text-decoration: none;
   display: inline-block;
+  transition: border-color 0.15s, background 0.15s;
 }
 
-.btn:hover { background: #efe9dd; }
-.btn.danger { color: #b5482f; border-color: #e2b6a8; }
-.btn.danger:hover { background: #fbeee9; }
+.btn:hover { background: var(--purple-light); border-color: var(--purple-mid); }
+.btn.danger { color: #b5482f; border-color: #ffd8bb; }
+.btn.danger:hover { background: #fff0e6; }
 
 .hidden { display: none !important; }
 
 .key-gate {
   background: #fff;
-  border: 1px solid #ddd4c4;
-  border-radius: 10px;
-  padding: 20px;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 22px;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -67,43 +98,52 @@ h2 { font-size: 1.1rem; margin: 0 0 4px; }
 }
 
 .key-gate input {
-  padding: 9px 12px;
-  border: 1px solid #ddd4c4;
-  border-radius: 8px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
   font-size: 0.9rem;
   flex: 1;
   min-width: 200px;
+  font-family: inherit;
 }
 
-section { margin-bottom: 34px; }
+section { margin-bottom: 36px; }
 
-.hint { font-size: 0.82rem; color: #6b6355; margin: 0 0 14px; }
+.hint { font-size: 0.82rem; color: var(--muted); margin: 0 0 14px; }
 
 .summary-row { display: flex; gap: 14px; flex-wrap: wrap; }
 
 .stat-card {
   background: #fff;
-  border: 1px solid #ddd4c4;
-  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
   padding: 16px 22px;
   min-width: 140px;
 }
 
-.stat-card.warn { border-color: #e2b6a8; background: #fbeee9; }
+.stat-card.warn { border-color: #ffd8bb; background: #fff0e6; }
 
-.stat-num { font-size: 1.9rem; font-weight: 700; }
-.stat-label { font-size: 0.78rem; color: #6b6355; margin-top: 2px; line-height: 1.4; }
+.stat-num {
+  font-family: "Proxima Nova", "Helvetica Neue", Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--purple-ink);
+}
+
+.stat-card.warn .stat-num { color: #d97a34; }
+
+.stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 2px; line-height: 1.4; }
 
 .bars { display: flex; flex-direction: column; gap: 10px; }
 
 .bar-row { display: flex; align-items: center; gap: 12px; }
 
-.bar-label { flex: 0 0 210px; font-size: 0.85rem; }
+.bar-label { flex: 0 0 210px; font-size: 0.85rem; font-weight: 500; }
 
 .bar-track {
   flex: 1;
-  background: #ece5d6;
-  border-radius: 6px;
+  background: #ece8fb;
+  border-radius: 999px;
   height: 22px;
   position: relative;
   overflow: hidden;
@@ -111,7 +151,7 @@ section { margin-bottom: 34px; }
 
 .bar-fill {
   height: 100%;
-  border-radius: 6px;
+  border-radius: 999px;
   transition: width 0.3s ease;
 }
 
@@ -119,25 +159,33 @@ section { margin-bottom: 34px; }
   flex: 0 0 34px;
   text-align: right;
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .table-wrap {
   overflow-x: auto;
   background: #fff;
-  border: 1px solid #ddd4c4;
-  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
 }
 
 table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
 
 th, td {
   text-align: left;
-  padding: 9px 12px;
-  border-bottom: 1px solid #ece5d6;
+  padding: 10px 14px;
+  border-bottom: 1px solid #f1eefc;
   white-space: nowrap;
 }
 
-th { color: #6b6355; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+th {
+  color: var(--purple-ink);
+  font-weight: 700;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #faf9ff;
+}
 
 tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: #faf9ff; }

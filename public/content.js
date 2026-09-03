@@ -2,12 +2,12 @@
 // it's small and rarely changes, so a build step felt like overkill).
 window.CONTENT = {
   CATEGORIES: {
-    A: { key: "A", label: "Direction & Empowerment", color: "#5b5bd6" },
-    B: { key: "B", label: "Innovation & Experimentation", color: "#d97a34" },
-    C: { key: "C", label: "Customer & Data Centricity", color: "#1c8c7c" },
-    D: { key: "D", label: "Workload & Sustainability", color: "#c14b5a" },
-    E: { key: "E", label: "Culture & Feedback", color: "#8452b3" },
-    F: { key: "F", label: "GenAI Adoption", color: "#a68c1f" },
+    A: { key: "A", label: "Direction & Empowerment", color: "#785AF2" },
+    B: { key: "B", label: "Innovation & Experimentation", color: "#FFA740" },
+    C: { key: "C", label: "Customer & Data Centricity", color: "#00AADF" },
+    D: { key: "D", label: "Workload & Sustainability", color: "#4BBE37" },
+    E: { key: "E", label: "Culture & Feedback", color: "#E166D5" },
+    F: { key: "F", label: "GenAI Adoption", color: "#EFD500" },
   },
 
   SAY_STATEMENTS: [

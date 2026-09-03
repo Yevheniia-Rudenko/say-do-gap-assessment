@@ -84,6 +84,8 @@ say-do-gap/
     ├── index.html       # participant flow shell
     ├── app.js            # participant flow logic (screens, ranking, result render)
     ├── style.css
+    ├── fonts.css         # @font-face rules for the self-hosted Proxima Nova files
+    ├── fonts/            # Proxima Nova .woff2 files (brand typeface)
     ├── content.js        # browser copy of the same content model
     ├── facilitator.html  # dashboard shell
     ├── facilitator.js    # dashboard logic (fetch, charts, CSV link, reset)
